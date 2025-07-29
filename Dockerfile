@@ -32,6 +32,17 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+  # Instalar Node.js 22 de forma eficiente usando NodeSource
+  RUN apt-get update && \
+      apt-get install -y curl ca-certificates gnupg && \
+      curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+      apt-get install -y nodejs && \
+      apt-get clean && \
+      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+  # Verificar instalación de Node.js
+  RUN node --version && npm --version
+
 # Configurar variables de entorno para Java (si es necesario que estén disponibles globalmente)
 ENV JAVA_HOME=/usr/lib/jvm/default-java
 ENV PATH="$JAVA_HOME/bin:$PATH"
